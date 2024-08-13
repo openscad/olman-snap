@@ -1,0 +1,48 @@
+name: olman
+title: olman - The OpenSCAD Library Manager
+base: core24
+version: "0.0.1"
+summary: The OpenSCAD Library Manager
+description: >
+  The OpenSCAD Library Manager
+confinement: strict
+#icon: images/openscad-256.png
+license: MIT
+grade: devel
+
+apps:
+  olman:
+    command: bin/python3
+    #desktop: usr/share/applications/olman.desktop
+    plugs:
+      - desktop
+      - home
+      - network
+
+parts:
+  libversion:
+    source: "https://github.com/repology/libversion/archive/refs/tags/3.0.3.tar.gz"
+    plugin: cmake
+    cmake-parameters:
+      - "-DCMAKE_INSTALL_PREFIX=/usr"
+      - "-DCMAKE_BUILD_TYPE=Release"
+  olman:
+    plugin: python
+    source: "https://github.com/openscad/openscad-library-manager/archive/refs/heads/main.tar.gz"
+    source-subdir: olman-client
+    override-build: |
+      pwd
+      ls -la "$CRAFT_PROJECT_DIR"
+      patch -p1 < "$CRAFT_PROJECT_DIR"/dirs.patch
+      craftctl default
+    python-packages:
+      - wheel
+      - libversion
+    build-packages:
+      - pkg-config
+      - python3-venv
+      - python3-poetry
+      - python3-minimal
+    stage-packages:
+      - python3-venv
+      - python3-poetry
