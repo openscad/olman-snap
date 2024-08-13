@@ -9,6 +9,13 @@ confinement: strict
 #icon: images/openscad-256.png
 license: MIT
 grade: devel
+architectures:
+  - build-on: amd64
+  - build-on: arm64
+# - build-on: armhf
+# - build-on: ppc64el
+# - build-on: s390x
+# - build-on: riscv64
 
 apps:
   olman:
@@ -31,12 +38,9 @@ parts:
     source: "https://github.com/openscad/openscad-library-manager/archive/refs/heads/main.tar.gz"
     source-subdir: olman-client
     override-build: |
-      pwd
-      ls -la "$CRAFT_PROJECT_DIR"
       patch -p1 < "$CRAFT_PROJECT_DIR"/dirs.patch
       craftctl default
     python-packages:
-      - wheel
       - libversion
     build-packages:
       - pkg-config
