@@ -46,3 +46,5 @@ parts:
     stage-packages:
       - python3-venv
       - python3-poetry
+    after:
+      - libversion
