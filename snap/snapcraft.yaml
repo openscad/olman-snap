@@ -24,9 +24,6 @@ parts:
   libversion:
     source: "https://github.com/repology/libversion/archive/refs/tags/3.0.3.tar.gz"
     plugin: cmake
-    cmake-parameters:
-      - "-DCMAKE_INSTALL_PREFIX=/usr"
-      - "-DCMAKE_BUILD_TYPE=Release"
   olman:
     plugin: python
     source: "https://github.com/openscad/openscad-library-manager/archive/refs/heads/main.tar.gz"
