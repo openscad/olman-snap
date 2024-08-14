@@ -6,7 +6,6 @@ summary: The OpenSCAD Library Manager
 description: >
   The OpenSCAD Library Manager
 confinement: strict
-#icon: images/openscad-256.png
 license: MIT
 grade: devel
 platforms:
@@ -16,7 +15,6 @@ platforms:
 apps:
   olman:
     command: bin/python3
-    #desktop: usr/share/applications/olman.desktop
     plugs:
       - desktop
       - home
@@ -36,15 +34,9 @@ parts:
     override-build: |
       patch -p1 < "$CRAFT_PROJECT_DIR"/dirs.patch
       craftctl default
+    after:
+      - libversion
     python-packages:
       - libversion
     build-packages:
       - pkg-config
-      - python3-venv
-      - python3-poetry
-      - python3-minimal
-    stage-packages:
-      - python3-venv
-      - python3-poetry
-    after:
-      - libversion
